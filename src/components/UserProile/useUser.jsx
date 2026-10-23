@@ -58,7 +58,7 @@ function useUser() {
 
 
     // Create user document
-    const setData = async (firstname, lastname, displayName, email, uid, theme, userimageUrl) => {
+    const setData = async (firstname, lastname, displayName, email, type, uid, theme, userimageUrl) => {
 
         try {
 
@@ -67,6 +67,7 @@ function useUser() {
                 lastname,
                 displayName,
                 email,
+                type,
                 uid,
                 theme,
                 userimageUrl

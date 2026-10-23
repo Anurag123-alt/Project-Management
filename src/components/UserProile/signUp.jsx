@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { auth, db } from "../../firebase.js"
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth"
+import { createUserWithEmailAndPassword, reload, sendEmailVerification, updateProfile, verifyBeforeUpdateEmail } from "firebase/auth"
 import { useNavigate } from "react-router-dom";
 import { setDoc, doc } from "firebase/firestore";
 import SideBar from "../SideBar/sideBar.jsx";
@@ -21,7 +21,7 @@ function SignUp({ setData }) {
     const [firstname, setFirstName] = useState("")
     const [lastname, setLastName] = useState("")
     const [type, setType] = useState("")
-    // const userType = ["client", "devloper"]
+    const userType = ["owner", "client", "manager", "member"]
 
 
 
@@ -55,63 +55,161 @@ function SignUp({ setData }) {
 
     }
 
+    // const checkVerification = async () => {
+    //     try {
+    //         const user = auth.currentUser;
+
+    //         if (!user) return;
+
+    //         await reload(user);
+
+    //         if (auth.currentUser.emailVerified) {
+    //             console.log("Email verified ");
+
+    //             navigate("/dashboard");
+    //         } else {
+    //             console.log("Email not verified yet");
+    //         }
+    //     } catch (err) {
+    //         console.log(err.message);
+    //     }
+    // };
+
+    // checkVerification()
+
+    // const handleUser = async () => {
+
+    //     try {
+    //         setloading(true)
+    //         const user = await createUserWithEmailAndPassword(
+    //             auth,
+    //             email,
+    //             password
+    //         )
+    //         await updateProfile(user.user, {
+    //             displayName: `${firstname} ${lastname}`
+    //         })
+    //         // await setDoc(doc(db, "users", user.user.uid), {
+    //         //     firstname,
+    //         //     lastname,
+    //         //     displayName: `${firstname} ${lastname}`,
+    //         //     email: user.user.email,
+
+    //         // });
+
+    //         // await sendEmailVerification(user.user)
+
+
+
+
+
+    //         setData(firstname,
+    //             lastname,
+    //             user.user.displayName,
+    //             user.user.email,
+    //             type,
+    //             user.user.uid, theme, userimageUrl)
+
+    //         console.log(user);
+    //         console.log(user.user);
+
+    //         // navigate("/dashboard")
+    //     }
+
+    //     catch (err) {
+    //         console.log(err.code);
+    //         // auth / invalid - email
+
+    //         if (err.code === "auth/email-already-in-use") {
+    //             setError("email is already in use try sign in")
+    //         }
+
+    //         else if (err.code === "auth/invalid-email") {
+    //             setError("Invalid email write proper email in formate")
+
+    //         }
+
+    //         else {
+    //             setError("sdjbjsbjs")
+    //         }
+    //         console.log(err.message);
+
+    //     }
+    //     finally {
+    //         setloading(false)
+
+    //     }
+
+    // }
+
+
     const handleUser = async () => {
-
         try {
-            setloading(true)
-            const user = await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-            )
-            await updateProfile(user.user, {
-                displayName: `${firstname} ${lastname}`
-            })
-            // await setDoc(doc(db, "users", user.user.uid), {
-            //     firstname,
-            //     lastname,
-            //     displayName: `${firstname} ${lastname}`,
-            //     email: user.user.email,
+            setloading(true);
+            setError("");
 
-            // });
+            // 1. Create account
+            const userCredential =
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
 
-            setData(firstname,
-                lastname,
-                user.user.displayName,
-                user.user.email,
-                user.user.uid, theme, userimageUrl)
-
+            const user = userCredential.user;
             console.log(user);
-            console.log(user.user);
 
-            navigate("/dashboard")
-        }
+            // 2. Set display name
+            await updateProfile(user, {
+                displayName: `${firstname} ${lastname}`
+            });
+            const actionCodeSetting = {
+                url: "https://project-management-eosin-three.vercel.app/dashboard",
+                handleCodeInApp: false
+            }
+            // 3. Send verification email
+            await sendEmailVerification(user, actionCodeSetting);
 
-        catch (err) {
-            console.log(err.code);
-            // auth / invalid - email
+            console.log("Verification email sent");
+            console.log("Sending verification email...");
+            console.log("User email:", user.email);
+            console.log("Email verified:", user.emailVerified);
+            // 4. Save user data in context
+            setData(
+                firstname,
+                lastname,
+                user.displayName,
+                user.email,
+                type,
+                user.uid,
+                theme,
+                userimageUrl
+            );
 
+            // 5. Go to verification page
+            navigate("/verify-email");
+
+        } catch (err) {
+            // console.log("Error code:", err.code);
+            // console.log("Error message:", err.message);
+            console.error("VERIFICATION ERROR CODE:", error.code);
+            console.error("VERIFICATION ERROR MESSAGE:", error.message);
             if (err.code === "auth/email-already-in-use") {
-                setError("email is already in use try sign in")
+                setError("Email is already in use. Try signing in.");
+            } else if (err.code === "auth/invalid-email") {
+                setError("Please enter a valid email address.");
+            } else if (err.code === "auth/weak-password") {
+                setError("Password is too weak.");
+            } else if (err.code === "auth/too-many-requests") {
+                setError("Too many attempts. Please try again later.");
+            } else {
+                setError(err.message);
             }
-
-            else if (err.code === "auth/invalid-email") {
-                setError("Invalid email write proper email in formate")
-
-            }
-
-            else {
-                setError("sdjbjsbjs")
-            }
-            console.log(err.message);
-
+        } finally {
+            setloading(false);
         }
-        finally {
-            setloading(false)
+    };
 
-        }
-
-    }
 
 
     const handleType = (e) => {
@@ -176,7 +274,7 @@ function SignUp({ setData }) {
                             onChange={(e) => setPassword(e.target.value)}
                         />
 
-                        {/* <select
+                        <select
                             onChange={handleType}
                             className={Styles.userType}                        >
                             {userType.map((item) => (
@@ -187,7 +285,7 @@ function SignUp({ setData }) {
                                     }}
                                 >{item}</option>
                             ))}
-                        </select> */}
+                        </select>
                         {userimageUrl && (
                             <img
                                 style={{

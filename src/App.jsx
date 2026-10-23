@@ -19,6 +19,8 @@ import Project from "./components/Project/projectInput.jsx"
 import WorkSpaceUi from "./components/workspace/workSpaceUi.jsx"
 import WorkspaceSetting from "./components/workspace/workspaceSetting.jsx"
 import MilestoneDetails from "./components/milestone/milestoneDetails.jsx"
+import VerifyEmail from "./components/UserProile/verifyEmail.jsx"
+
 
 import "./App.css"
 
@@ -146,12 +148,14 @@ function App() {
                             {workSpaceOpen && <WorkSpaceUi form={form} />}
                         </div>
                         <Routes>
-                            <Route path="/" element={<Project form={form} />} />
+                            {/* <Route path="/" element={<Project form={form} />} /> */}
+                            <Route path="/verify-email" element={<VerifyEmail />} />
+
                             <Route path="/project/:id" element={<ProjectDetails />} />
                             <Route path="/milestonedetails/:mid/:pid" element={<MilestoneDetails />} />
 
 
-                            {/* <Route path="/" element={<SignUp setData={setData} />} /> */}
+                            <Route path="/" element={<SignUp setData={setData} />} />
                             <Route path="/workspacesetting" element={<WorkspaceSetting />} />
 
                             <Route path="/signin" element={<SignIn />} />
