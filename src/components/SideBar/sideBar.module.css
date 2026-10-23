@@ -1,0 +1,386 @@
+@import url('https://fonts.googleapis.com/css2?family=Atomic+Age&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Atomic+Age&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+
+
+
+
+.tabasideContainer {
+
+    display: none;
+}
+
+
+
+
+
+.asideContainer {
+    width: 230px;
+    height: 100%;
+    position: fixed;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    transition: 0.15s ease;
+    z-index: 1;
+}
+
+
+
+.absoluteClose {
+    width: 100%;
+    height: 100vmax;
+    background: linear-gradient(270deg, rgba(86, 86, 86, 0.2), rgba(86, 86, 86, 0.3), rgba(86, 86, 86, 0.4), rgba(86, 86, 86, 1));
+    backdrop-filter: blur(4px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 1s;
+}
+
+.sideBarOpen {
+    transform: translateX(0px);
+
+}
+
+.sideBarClose {
+    transform: translateX(-230px);
+
+}
+
+.sideBarCLoseDiv {
+    display: none;
+}
+
+.sideBarOpenDiv {
+    display: block;
+}
+
+.asideDropdowncontainer {
+    display: flex;
+    align-items: center;
+    padding: 5px 5px;
+    border-radius: 10px;
+
+}
+
+.asideTitleIcon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-radius: 50%;
+
+
+}
+
+.asideTitleIcon img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px var(--shadow-light);
+
+
+}
+
+.asideTitleContainer {
+    display: flex;
+    flex-direction: column;
+    /* gap: 0px; */
+}
+
+.asideTitle {
+
+    width: 100px;
+    height: auto;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    font-size: 16px;
+    /* background: rgb(104, 31, 177); */
+
+}
+
+
+
+.wsNum {
+    font-size: 12px;
+}
+
+.DropDownBtn {
+    width: 30px;
+    height: auto;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+
+
+.dropDown {
+    position: absolute;
+    top: 68px;
+    left: 13px;
+    width: 205px;
+    height: auto;
+    background: var(--dark-back);
+    /* opacity: 0.9; */
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    box-sizing: border-box;
+    gap: 4px;
+}
+
+.dropDownaccent {
+    background: rgba(124, 61, 251, 0.25);
+}
+
+.hrLine {
+    width: 2.5px;
+    height: 100%;
+    background: rgba(124, 61, 251, 1);
+    transform: translateX(-6px);
+    border-radius: 2px;
+}
+
+.wsButton {
+    width: 100%;
+    height: 37px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 9px;
+    
+
+}
+
+.optionContainer {
+
+    width: 100%;
+    height: 40px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    font-size: 13px;
+    padding: 7px;
+    box-sizing: border-box;
+    border-radius: 6px;
+}
+
+.wsOptionImage {
+    width: 20px;
+    height: 20px;
+    /* box-shadow: 0 4px 15px var(--shadow-light); */
+    border-radius: 50%;
+}
+
+.wsOptionImage img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.wsOption {
+    width: 70%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+.asideTitleBar {
+    width: 25%;
+    height: auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+
+}
+
+
+.asideListContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+}
+
+.asideList {
+    display: flex;
+    padding: 12px 10px;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+}
+
+
+
+.asideList:hover {
+    background: rgba(124, 61, 251, 0.6);
+
+    cursor: pointer;
+}
+
+.asideListIcon {
+    width: 20%;
+}
+
+.asideListTitle {
+    width: 80%;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    font-size: 17px;
+}
+
+
+
+.asideTheme {
+    display: flex;
+    padding: 12px 10px;
+    position: absolute;
+    bottom: 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    cursor: pointer;
+    background: var(--accent);
+    transition: 0.3s;
+    width: 40%;
+    right: 10px;
+
+}
+
+
+.asideTheme:hover {
+    filter: saturate(200%);
+}
+
+.asideListThemeIcon {
+    width: 28%;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+
+}
+
+.asideListThemeTitle {
+    width: 73%;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+    font-size: 17px;
+}
+
+
+
+.dashboardContainer {
+    width: 80%;
+    height: 100%;
+    background: #eeebeb;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+
+}
+
+@media screen and (min-width:1001px) {
+    .asideContainer {
+        transform: translateX(0px);
+
+    }
+}
+
+@media screen and (min-width: 550px)and (max-width: 1000px) {
+
+    .tabasideContainer {
+        width: 70px;
+        height: 100%;
+        position: fixed;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        font-family: "Plus Jakarta Sans", sans-serif;
+    }
+
+
+    .tabasideBar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 5px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .tabasideListContainer {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .tabasideList {
+        padding: 13px;
+        box-sizing: border-box;
+        border-radius: 7px;
+
+    }
+
+    .tabasideList:hover {
+        background: rgba(124, 61, 251, 0.6);
+
+        cursor: pointer;
+    }
+
+    .icon {
+        transition: all 0.3s ease;
+
+    }
+
+    .tabasideList:hover>.icon {
+        transform: scale(1.4);
+    }
+
+    .tabasideTheme {
+        position: absolute;
+        bottom: 10px;
+        padding: 15px;
+        box-sizing: border-box;
+        border-radius: 7px;
+        transition: 0.3s;
+        cursor: pointer;
+        background: var(--accent);
+
+    }
+
+    .tabasideTheme:hover {
+        filter: saturate(200%);
+    }
+
+}
+
+@media screen and (min-width: 0px)and (max-width: 550px) {
+    .tabasideContainer {
+        display: none;
+
+    }
+
+
+
+}

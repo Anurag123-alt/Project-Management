@@ -1,0 +1,132 @@
+:root {
+    /* =========================
+       BACKGROUND
+    ========================= */
+    --light-back: #d9dbe3;
+    /* --light-back: #d7d9e3; */
+
+    --dark-back: #0f172a;
+
+
+    /* =========================
+       TEXT
+    ========================= */
+    --light-text: #111827;
+    --dark-text: #f1f5f9;
+
+
+    /* =========================
+       CARD
+    ========================= */
+    --light-card: #ffffff;
+    --light-card-text: #111827;
+
+    --dark-card: #1e293b;
+    --dark-card-text: #f1f5f9;
+
+
+    /* =========================
+       SHADOW
+    ========================= */
+    --shadow-light: rgba(15, 23, 42, 0.10);
+    --shadow-dark: rgba(0, 0, 0, 0.35);
+
+
+    /* =========================
+       ACCENT
+    ========================= */
+
+    --accent: #7c3dfb;
+
+    /* Main accent */
+    --primary: #14b8a6;
+    --primary-hover: #0d9488;
+}
+
+
+/* =========================
+   PAGE THEME
+========================= */
+
+.dark {
+    background: var(--dark-back);
+    color: var(--dark-text);
+}
+
+.light {
+    background: var(--light-back);
+    color: var(--light-text);
+}
+
+
+/* =========================
+   CARD
+========================= */
+
+.dark_card {
+    background: var(--dark-card);
+    color: var(--dark-card-text);
+}
+
+.light_card {
+    background: var(--light-card);
+    color: var(--light-card-text);
+}
+
+
+/* =========================
+   SHADOW
+========================= */
+
+.light_shadow {
+    box-shadow: 0 4px 15px var(--shadow-light);
+}
+
+.dark_shadow {
+    box-shadow: 0 4px 15px var(--shadow-dark);
+}
+
+
+/* =========================
+   ACCENT
+========================= */
+
+.dark_accent {
+    background: var(--dark-accent);
+    color: var(--dark-text);
+}
+
+.light_accent {
+    background: var(--light-accent);
+    color: var(--light-text);
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.btndark {
+    background: var(--primary);
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.btndark:hover {
+    background: var(--primary-hover);
+}
+
+
+.btnlight {
+    background: var(--light-accent);
+    color: #0f766e;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.btnlight:hover {
+    background: #c5ebe7;
+}

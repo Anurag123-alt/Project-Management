@@ -1,0 +1,513 @@
+@import url('https://googleapis.com');
+
+@import url('https://fonts.googleapis.com/css2?family=Atomic+Age&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+
+.todoContainer {
+
+    display: grid;
+    height: 100%;
+    grid-template-columns: 70px 1fr;
+    font-family: "Plus Jakarta Sans", sans-serif;
+
+}
+
+@media screen and (min-width:1001px) {
+    .todoContainer {
+        grid-template-columns: 230px 1fr;
+    }
+}
+
+.sidebar {
+
+    height: 100%;
+    background: red;
+}
+
+.todoDashboard {
+    height: 100ex;
+
+
+    box-sizing: border-box;
+    /* padding: 30px; */
+}
+
+.todoHeader {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    padding: 0px 15px;
+
+    /* justify-content: space-between; */
+    align-items: center;
+    /* border-bottom: 1px solid #bab6b6; */
+    box-sizing: border-box;
+}
+
+.hearderFirst {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+
+
+.taskTitle {
+    font-size: 22px;
+
+}
+
+.taskDescription {
+    color: rgb(101, 102, 102);
+    font-size: 14px;
+    height: 30px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    margin-left: 1px;
+
+}
+
+.hearderSecond {
+    width: 50%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 42px 100px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    box-sizing: border-box;
+
+}
+
+.todoSearchContainer {
+    height: 38px;
+    display: grid;
+    grid-template-columns: 42px;
+    border-radius: 7px;
+
+}
+
+.todoSearchBox {
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+    overflow: hidden;
+
+}
+
+.todoSearch {
+
+    display: none;
+
+}
+
+
+
+
+.addTaskBtn {
+    height: 40px;
+    background: var(--accent);
+
+    color: #fff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    font-size: 14.7px;
+
+}
+
+
+
+.sectionFirst {
+    padding: 0 15px;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filterBtnSection {
+    display: flex;
+    gap: 10px;
+}
+
+.sortBtn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    border-radius: 19px;
+
+}
+
+.filterBtn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px;
+    border-radius: 7px;
+
+}
+
+.sortIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.taskStatusContainer {
+    display: flex;
+    gap: 7px;
+    padding: 15px 20px;
+    margin-left: 9px;
+
+}
+
+
+
+.taskStatusContainer button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 12px;
+    border-radius: 7px;
+    box-sizing: border-box;
+    border: none;
+    font-weight: 550;
+    transition: 0.3s;
+    cursor: pointer;
+    transition: 0.3s;
+
+}
+
+
+
+.active {
+    background: var(--accent);
+
+    color: #fafafa;
+}
+
+
+
+/* .active .num {
+    background: #fff;
+    color: rgb(98, 80, 199);
+} */
+
+.num {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    /* background: var(--accent); */
+
+    /* color: #fff; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+
+}
+
+.todoListContainer {
+    padding: 15px 25px;
+
+}
+
+.complete {
+    text-decoration: line-through;
+    text-decoration-color: rgba(15, 148, 6, 0.9);
+    text-decoration-thickness: 3.5px;
+
+}
+
+.todoListBox {
+    height: 400px;
+    padding: 10px 10px;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    border-radius: 10px;
+
+}
+
+.list {
+    display: flex;
+    /* height: 150px; */
+    /* background: #cdc5c5; */
+    box-sizing: border-box;
+    /* border-bottom: 2px solid #e3dee7; */
+    border-radius: 10px;
+    padding: 15px 5px;
+    /* padding: 10px 5px; */
+
+    transition: 0.3s;
+    /* box-shadow: 0px 0px 10px rgba(72, 72, 72, 0.4); */
+    /* font-family: "Atomic Age", system-ui; */
+    /* font-family: "Dancing Script", cursive; */
+
+    /* font-family: "Caveat", cursive; */
+    /* font-family: "Permanent Marker", system-ui; */
+    /* font-family: "DM Sans", sans-serif; */
+    font-family: "Inter", sans-serif;
+}
+
+.listFirst {
+    width: 80%;
+    display: grid;
+    /* gap: 5px; */
+    align-items: center;
+    grid-template-columns: 45px auto;
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+    width: 150px;
+    height: auto;
+    right: -27%;
+    top: 100%;
+    border-radius: 10px;
+    /* border: 1px solid #000; */
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 5px;
+    z-index: 1;
+}
+
+.editBtn {
+    padding: 10px;
+    text-align: left;
+    border-radius: 5px;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.edit {
+    border: none;
+    background: none;
+    transition: 0.3s;
+
+}
+
+.editBtn> :first-child {
+    color: rgb(48, 5, 166);
+    color: rgb(59, 130, 246, 1);
+
+
+
+}
+
+/* .editBtn:hover> :first-child {
+    color: rgba(115, 0, 255, 0.7);
+} */
+
+/* .editBtn:hover> :last-child {
+    color: rgba(115, 0, 255, 0.7);
+} */
+
+.editBtn> :last-child {
+    color: rgb(59, 130, 246, 1);
+
+
+}
+
+
+
+.editBtn:hover {
+    /* background: rgba(123, 48, 216, 0.5);
+    background: rgba(210, 42, 42, 0.3); */
+    background: rgba(59, 130, 246, 0.19);
+
+
+}
+
+
+.deleteBtn> :first-child {
+    color: rgb(254, 27, 27);
+}
+
+/* .deleteBtn:hover> :first-child {
+    color: rgba(255, 0, 72, 0.7);
+}
+
+.deleteBtn:hover> :last-child {
+    color: rgba(255, 0, 0, 0.7);
+} */
+
+.deleteBtn> :last-child {
+    color: rgb(254, 27, 27);
+
+}
+
+.deleteBtn {
+    border: none;
+    padding: 10px;
+    text-align: left;
+    border-radius: 5px;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.delete {
+    border: none;
+    background: none;
+    transition: 0.3s;
+    /* margin-top: 5px; */
+    transform: translateY(1px);
+}
+
+
+
+.deleteBtn:hover {
+    background: rgba(210, 42, 42, 0.19);
+    background: rgb(254, 27, 27, 0.19);
+
+
+
+
+}
+
+
+
+.completeInput {
+    /* width: 20px; */
+    height: 20px;
+    margin-left: -5px;
+    cursor: pointer;
+}
+
+
+
+.task {
+    /* background: gray; */
+    font-size: 19px;
+    font-weight: 350;
+}
+
+.taskSection {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.taskDateSection {
+    display: flex;
+    gap: 10px;
+}
+
+.date {
+    display: flex;
+    gap: 5px;
+    font-size: 14px;
+}
+
+.priority {
+    font-size: 14px;
+
+}
+
+.listSecond {
+    width: 20%;
+    /* display: grid;
+    grid-template-columns: auto 30px 20px; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    /* background: red; */
+}
+
+.Threedot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    margin-top: -5px;
+    cursor: pointer;
+}
+
+.Threedot:hover {
+    background: #234;
+    color: rgb(214, 221, 227);
+}
+
+
+
+.pinInput {
+    display: none;
+}
+
+.pin {
+    transform: translateX(-10px) rotate(45deg);
+    cursor: pointer;
+
+}
+
+
+
+
+.showBtn {
+    padding: 9px;
+    border: none;
+    border-radius: 7px;
+    background: var(--accent);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+
+@media screen and (min-width: 850px) {
+
+
+    .todoSearchContainer {
+        height: 40px;
+        display: grid;
+        grid-template-columns: 45px 1fr;
+        border-radius: 10px;
+        overflow: hidden;
+
+    }
+
+    .todoSearchBox {
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+
+    }
+
+    .hearderSecond {
+        grid-template-columns: 1fr 100px;
+
+
+    }
+
+    .todoSearch {
+        border: none;
+        display: block;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        font-size: 16px;
+        margin-left: -5px;
+    }
+
+
+}

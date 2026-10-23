@@ -1,0 +1,472 @@
+@import url('https://googleapis.com');
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: grid;
+
+    grid-template-columns: 70px 1fr;
+}
+
+
+
+
+.sidebar {
+
+    height: 100%;
+    background: red;
+}
+
+.dashboardContainer {
+    box-sizing: border-box;
+    padding: 20px;
+    /* height: 100%; */
+    height: 100ex;
+
+
+}
+
+.dashboardHeader {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    /* justify-content: ; */
+    align-items: center;
+    box-sizing: border-box;
+    font-family: "Plus Jakarta Sans", sans-serif;
+
+
+}
+
+.dashboardTitle {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+
+}
+
+
+.gridContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.recentTaskAndStatusContaoner {
+    /* width: 100%; */
+    padding: 10px;
+    height: auto;
+    margin-top: 30px;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 10px;
+}
+
+.taskTitleContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.taskTitle {
+    height: 50px;
+    display: flex;
+    padding-left: 10px;
+    padding-top: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    font-family: "Plus Jakarta Sans", sans-serif;
+
+}
+
+.recentTaskContainer {
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    display: flex;
+    /* grid-template-columns: auto auto 100px; */
+    /* flex-direction: column; */
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 1.2px solid rgb(214, 209, 209);
+    font-family: "Plus Jakarta Sans", sans-serif;
+
+}
+
+/* .recentTaskList {
+    width: 100%;
+} */
+
+.task {
+    font-size: 17px;
+    font-weight: bold;
+    font-family: "inter", sans-serif;
+    width: auto;
+    text-wrap: nowrap;
+
+}
+
+.category {
+    font-size: 13px;
+    color: rgba(99, 96, 96);
+
+}
+
+
+
+
+
+
+
+
+.statusContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    /* width: 20%; */
+    margin-left: 20px;
+
+
+}
+
+.tasksStatusBox {
+    background: #fff;
+}
+
+.priority {
+    padding: 5px 10px;
+    background: rgba(255, 0, 0, 0.3);
+    border-radius: 5.5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    border: 1px solid #bab6b6;
+
+}
+
+.time {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 80%;
+
+}
+
+.allTaskbtn {
+    display: flex;
+    justify-content: flex-end;
+    height: 50px;
+    align-items: center;
+    padding-right: 20px;
+    transform: translateY(10px);
+    cursor: pointer;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    color: var(--accent);
+}
+
+.dashboardAccountCon {
+    width: 50%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 42px 42px 42px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    box-sizing: border-box;
+    padding: 0px;
+}
+
+
+.dashboardSearchContainer {
+    height: 38px;
+    display: grid;
+    grid-template-columns: 42px;
+    border-radius: 7px;
+
+}
+
+.dashboardSearch {
+    display: none;
+
+}
+
+
+.dashboardSearchBox {
+    width: 42px;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+    overflow: hidden;
+}
+
+
+
+.dashboardNotificationBox {
+    width: 42px;
+    height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 7px;
+
+}
+
+
+
+.dashboardAccountBox {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    margin-left: px;
+}
+
+
+
+.dashboardImg {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.UserInfoContainer {
+    display: flex;
+    gap: 18px;
+    height: 120px;
+    flex-direction: column;
+    align-items: center;
+    /* background: red; */
+    font-family: "Plus Jakarta Sans", sans-serif;
+    /* margin-top: 30px; */
+    padding: 40px 10px;
+}
+
+.UserInfobox {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+
+
+}
+
+.UserInfoTitle {
+    font-size: 25px;
+    font-weight: bold;
+    word-spacing: 1px;
+
+}
+
+.UserInfoDescription {
+    margin-top: 8px;
+    font-size: 14px;
+    word-spacing: 2px;
+    color: rgb(101, 102, 102);
+
+}
+
+.taskbtnContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.taskbtnBox {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    gap: 2px;
+    /* padding-left: 10px; */
+    padding: 8px 10px;
+    background: var(--accent);
+
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    text-wrap: nowrap;
+    box-shadow: 0px 0px 13px rgb(137, 120, 250);
+}
+
+.taskbtn {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+
+}
+
+.tasksStatusContainer {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    box-sizing: border-box;
+    font-family: "Plus Jakarta Sans", sans-serif;
+
+}
+
+.tasksStatusBox {
+    height: 100px;
+    border-radius: 10px;
+    /* background: #fff; */
+    background: rgb(26, 27, 27);
+    display: flex;
+    gap: 18px;
+    padding: 20px;
+    box-sizing: border-box;
+
+}
+
+.tasksStatusIcon {
+    width: 40px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+}
+
+.tasksIcon {
+    width: 30px;
+    height: 25px;
+    padding: 10px;
+    border-radius: 5px;
+    /* background: rgb(104, 31, 177); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.taskColor1 {
+    background: rgba(111, 96, 250, 0.373);
+}
+
+.taskColor2 {
+    background: rgba(74, 222, 128, 0.373);
+
+}
+
+.taskColor3 {
+    background: rgba(221, 199, 30, 0.373);
+
+}
+
+
+.taskColor4 {
+    background: rgba(248, 113, 113, 0.373);
+
+}
+
+.tasksStatusDesc {
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+.tasksStatusTitle {
+    margin-top: 3px;
+    /* font-weight: bold; */
+
+}
+
+.tasksStatusNumber {
+    font-size: 25px;
+    font-weight: bold;
+    margin-top: 7px;
+}
+
+.barDiv {
+    display: none;
+}
+
+@media screen and (min-width: 850px) {
+    .dashboardAccountCon {
+        grid-template-columns: 400px 45px 45px;
+    }
+
+
+
+
+    .dashboardSearchContainer {
+        height: 40px;
+        display: grid;
+        grid-template-columns: 45px 1fr;
+        border-radius: 10px;
+        overflow: hidden;
+
+    }
+
+    .dashboardSearchBox {
+        width: 45px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+
+    }
+
+    .dashboardSearch {
+        border: none;
+        display: block;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        font-size: 16px;
+        margin-left: -5px;
+    }
+
+    .UserInfoContainer {
+        flex-direction: row;
+        padding: 10px 10px;
+
+    }
+
+    .taskbtnContainer {
+        width: 20%;
+    }
+
+    .UserInfobox {
+        width: 80%;
+
+    }
+
+    .dashboardAccountBox {
+        border-radius: 50%;
+    }
+}
+
+
+@media screen and (min-width:1001px) {
+    .container {
+        grid-template-columns: 230px 1fr;
+    }
+
+
+
+}
+
+@media screen and (max-width:550px) {
+    .container {
+        grid-template-columns: 0px 1fr;
+    }
+
+    .barDiv {
+        display: block;
+    }
+
+}

@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Atomic+Age&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@media screen and (min-width: 550px)and (max-width: 1000px) {
+
+    .tabasideContainer {
+        width: 70px;
+        height: 100%;
+        position: fixed;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        font-family: "Plus Jakarta Sans", sans-serif;
+
+    }
+
+    .tabasideDropdowncontainer {
+        display: flex;
+        align-items: center;
+        /* justify-content: center; */
+        padding: 5px 5px;
+        border-radius: 10px;
+    }
+
+    .tabasideBar {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 5px;
+        border-radius: 10px;
+    }
+
+    .tabasideListContainer {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .tabasideList {
+        padding: 15px;
+        box-sizing: border-box;
+        border-radius: 7px;
+
+    }
+
+    .tabasideList:hover {
+        background: var(--light-back);
+    }
+
+
+    .tabasidelogout {
+        position: absolute;
+        bottom: 10px;
+        padding: 15px;
+        box-sizing: border-box;
+        border-radius: 7px;
+    }
+
+    .tabasidelogout:hover {
+        background: var(--light-back);
+    }
+
+}
