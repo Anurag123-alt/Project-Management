@@ -35,7 +35,7 @@ export default function SideBar() {
 
 
     const handleToggleUser = () => {
-        logoutUser()
+        // logoutUser()
         if (!users?.uid) return;
 
         const newTheme =
