@@ -7,39 +7,43 @@ function VerifyEmail() {
     const navigate = useNavigate();
 
     const checkVerification = async () => {
-        try {
-            const user = auth.currentUser;
+        const user = auth.currentUser
 
-            if (!user) {
-                navigate("/signin");
-                return;
-            }
-
-            const res = await reload(user);
-            console.log(res);
-
-            if (user.emailVerified) {
-                navigate("/dashboard");
-            } else {
-                alert("Please verify your email first.");
-            }
-        } catch (err) {
-            console.log(err.code, err.message);
+        if (!user) {
+            navigate("/signin")
+            return
         }
-    };
+        await reload(user)
+        if (user.emailVerified) {
+            navigate("/dashboard")
+        }
+        else {
+            alert("first verify your email")
+        }
+    }
 
     const resendVerification = async () => {
         try {
-            const user = auth.currentUser;
+            const user = auth.currentUser
+            if (!user) {
+                return
+            }
+            const actionCodeSetting = {
+                url: "https://project-management-eosin-three.vercel.app/dashboard",
+                handleCodeInApp: false
+            }
+            await sendEmailVerification(user, actionCodeSetting)
+            alert("verification email send again.")
 
-            if (!user) return;
-
-            await sendEmailVerification(user);
-            alert("Verification email sent again.");
-        } catch (err) {
-            console.log(err.code, err.message);
         }
-    };
+        catch (err) {
+            console.log(err);
+
+        }
+
+
+
+    }
 
     return (
         <div>

@@ -6,7 +6,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebase.js";
 function MilestoneDetails() {
     const navigate = useNavigate()
-    const { workspace } = useContext(userContext)
+    const { workspace, users, allUsers } = useContext(userContext)
 
     const { mid, pid } = useParams();
     const wsId = workspace.find(item => item.selected == true)
@@ -30,7 +30,8 @@ function MilestoneDetails() {
             }
             if (snapshot.exists() &&
                 snapshot.data().workspace_id == wsId.workspace_id
-                && snapshot.data().uid == wsId.uid) {
+            ) {
+                // && snapshot.data().uid == wsId.uid
                 setSingleMilestone({
                     milestone_id: snapshot.id,
                     ...snapshot.data()
@@ -58,13 +59,14 @@ function MilestoneDetails() {
             <div>{singleMilestone.workspace_id}</div>
             <div>{singleMilestone.title}</div>
             {todo.map((item) => (
-                <h1 style={{ color: "red" }}>{item.task}</h1>
+                <h1 key={item.id} style={{ color: "red" }}>{item.task}</h1>
             ))}
-            <button
+            {users.type !== "owner" && users.type !== "manager" && <button
                 onClick={() => {
                     navigate(`/addTask/${singleMilestone.milestone_id}/${singleMilestone.project_id}`)
+
                 }}
-            >Add Task</button>
+            >Add Task</button>}
 
         </div>
     );

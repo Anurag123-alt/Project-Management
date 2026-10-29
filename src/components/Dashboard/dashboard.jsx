@@ -3,7 +3,7 @@ import SideBar from "../SideBar/sideBar.jsx"
 import styles from "./dashboard.module.css"
 import { Home, Blocks, NotebookPen, Sidebar, SquareCheckBigIcon, BarChartIcon, StickyNoteOffIcon, Bell, Settings, Trash, Trash2, Trash2Icon, LucideTrash, Delete, DeleteIcon, LogOut, Calendar, Search, Hand, HandFist, HandGrabIcon, Plus, ListTodo, ListCheck, ListChecks, CheckCheck, CheckCircle2, CircleDashed, Clock1, Clock3, AlarmCheck, AlarmClock, TriangleAlert, CalendarX, ArrowBigLeft, ArrowRight, ArrowBigRight, ArrowBigLeftDash, ArrowRightCircle } from "lucide-react"
 import { auth, db } from "../../firebase.js"
-import { getDoc, doc } from "firebase/firestore"
+import { getDoc, doc, getDocs, query, collection, where } from "firebase/firestore"
 import { onAuthStateChanged } from "firebase/auth"
 import { userContext } from '../../userContext.jsx'
 import { useContext, useEffect, useState } from "react"
@@ -11,11 +11,16 @@ import { priorities } from "./category.jsx"
 import SIdeBarMenu from "../SideBar/bar.jsx"
 function Dashboard({ todo, user }) {
     // Uncaught (in promise) FirebaseError: Expected type 'Query', but it was: a custom DocumentReference object
-    const { allUsers, SetsidebarOpen, sidebarOpen } = useContext(userContext)
+    const { allUsers, addWsInvitaion, sidebarOpen, workspace } = useContext(userContext)
     console.log(user);
     console.log(allUsers);
 
     console.log(sidebarOpen);
+    const [selectUser, setselectedUser] = useState('')
+    const [selectRole, setselectedRole] = useState('')
+    const role = ["manager", "member", "client"]
+    const wsId = workspace.find(item => item.selected == true)
+
 
 
 
@@ -32,9 +37,9 @@ function Dashboard({ todo, user }) {
                         <div className={styles.dashboardTitle}>
                             <div
                                 className={styles.barDiv}
-                            > 
-                            
-                             <SIdeBarMenu />
+                            >
+
+                                <SIdeBarMenu />
                             </div>
 
                             Dashboard</div>
@@ -238,32 +243,50 @@ function Dashboard({ todo, user }) {
                                 </div>
                             </div>
 
-                            {allUsers.slice(0, 8).map((item) => {
+
+                            <div>
 
 
+                                <select
+                                    onChange={(e) => {
+                                        setselectedUser(e.target.value)
+                                    }}
+                                >
+                                    <option value="" hidden></option>
 
-                                return (
-                                    <div className={styles.recentUserContainer}>
-                                        <div className={styles.recentUserList}>
+                                    {allUsers.map((item) => (
+                                        <option value={item.email}>{item.email}</option>
+                                    ))}
+                                </select>
+                                <select
+                                    onChange={(e) => {
+                                        setselectedRole(e.target.value)
+                                    }}
+                                >
+                                    <option value="" hidden></option>
 
-                                            <div className={styles.task}>{item.firstname}</div>
-                                            <div className={styles.category}>
-                                                {/* {item.category} */}
-                                            </div>
+                                    {role.map((item) => (
+                                        <option value={item}>{item}</option>
+                                    ))}
+                                </select>
 
-                                        </div>
-                                        <div className={styles.statusContainer}>
+                                {selectUser}
 
-                                        </div>
+                                <button
+                                    onClick={() => {
+                                        addWsInvitaion(
+                                            selectUser,
+                                            selectRole,
+                                            wsId.workspace_id,
+                                            wsId.workspacename,
+                                            wsId.imageUrl
+                                        )
+                                    }}
+                                >
+                                    Invite
+                                </button>
 
-                                    </div>
-
-                                )
-
-                            })}
-
-
-
+                            </div>
                         </div>
                     </div>
 

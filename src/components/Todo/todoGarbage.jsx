@@ -53,7 +53,9 @@ function Garbage(params) {
 }
 
 export default Garbage
-
+allow update: if request.auth != null
+    && resource.data.uid == request.auth.uid
+    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(["members"]);
 import { useState } from "react";
 import { supabase } from "../supabase";
 

@@ -2,7 +2,7 @@ import { userContext } from "../../userContext.jsx";
 import { useContext, useState } from "react";
 import { supabase } from "../../supabase.js";
 function WorkSpaceInputUi({ form }) {
-    const { workspace, addWorkSpace, workspaceimageUrl, setworkspaceImageUrl, setworkSpaceOpen, loading } = useContext(userContext)
+    const { workspace, addWorkSpace, workspaceimageUrl, setworkspaceImageUrl, setworkSpaceOpen, loading, users } = useContext(userContext)
     const { setworkspacename,
         workspacename,
     } = form;
@@ -93,7 +93,7 @@ function WorkSpaceInputUi({ form }) {
 
                 (<button
                     onClick={() => {
-                        addWorkSpace(workspaceimageUrl, workspacename)
+                        addWorkSpace(workspaceimageUrl, workspacename, users.type)
                         if (!loading) {
                             setworkSpaceOpen(false)
 

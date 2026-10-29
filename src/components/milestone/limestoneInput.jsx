@@ -8,7 +8,6 @@ function Lime() {
     const wsId = workspace.find(item => item.selected == true)
     const { addLimeStone, milestone } = useMilestone(id, wsId)
 
-    console.log(milestone, id, workspace, wsId);
     const navigate = useNavigate()
     const [Text, setText] = useState("")
     return (

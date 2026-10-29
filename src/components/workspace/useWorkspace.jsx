@@ -1,5 +1,5 @@
 import { auth, db } from "../../firebase.js"
-import { addDoc, collection, getDocs, query, updateDoc, where, doc, onSnapshot, deleteDoc } from "firebase/firestore"
+import { addDoc, collection, getDocs, query, updateDoc, where, doc, onSnapshot, deleteDoc, arrayUnion, setDoc, FieldPath, or } from "firebase/firestore"
 import { onAuthStateChanged } from "firebase/auth"
 import { useContext, useEffect, useState } from "react"
 import { AwardIcon } from "lucide-react"
@@ -7,8 +7,10 @@ import { userContext } from "../../userContext.jsx"
 function useWorkspace() {
 
     const [workspace, setworkspace] = useState([])
+
     const [loading, setloading] = useState(false)
 
+    const wsId = workspace.find(item => item.selected == true)
 
     useEffect(() => {
         const unsubauth = onAuthStateChanged(auth, async (user) => {
@@ -20,7 +22,12 @@ function useWorkspace() {
             }
 
             const q = query(collection(db, "workspace"),
-                where("uid", "==", user.uid)
+                or(
+                    where("uid", "==", user.uid),
+
+                    where("membersuid", "array-contains", user.uid)
+                )
+
             )
 
             const snapshot = onSnapshot(q, (snapshot) => {
@@ -32,19 +39,27 @@ function useWorkspace() {
 
                 setworkspace(data)
             })
+
+
+
             return () => snapshot()
+
+
+
+
         })
 
         return () => unsubauth()
     }, [])
 
-    const addWorkSpace = async (imageUrl, workspacename) => {
+    const addWorkSpace = async (imageUrl, workspacename, type) => {
         try {
             setloading(true)
             await addDoc(collection(db, "workspace"), {
                 uid: auth?.currentUser?.uid,
                 imageUrl,
-                workspacename
+                workspacename,
+                type
             })
         }
         catch (err) {
@@ -54,9 +69,80 @@ function useWorkspace() {
         finally {
             setloading(false)
 
+
         }
 
     }
+
+    const updateWSpaceMember = async (email, role, workspace_id, userUid) => {
+        console.log(email, role, workspace_id, userUid);
+
+        try {
+            await updateDoc(doc(db, "workspace", workspace_id), {
+                membersuid: arrayUnion(userUid),
+
+            }
+            )
+        }
+
+        catch (err) {
+            console.log(err);
+
+        }
+
+
+    }
+
+    const addWsInvitaion = async (selectUser, selectRole, workspace_id, workspacename) => {
+        try {
+            if (selectRole == "manager") {
+
+                await addDoc(collection(db, "invitation"), {
+                    uid: auth.currentUser.uid,
+                    workspace_id: workspace_id,
+                    email: selectUser,
+                    role: selectRole,
+                    status: false,
+                    invitedBy: auth.currentUser.uid,
+                    workspacename: workspacename
+
+                })
+                console.log("success");
+
+            }
+
+
+        }
+
+        catch (err) {
+            console.log(err);
+
+        }
+
+
+    }
+
+    const updateWsInvitaion = async (id) => {
+        try {
+
+            await updateDoc(doc(db, "invitation", id), {
+                status: true,
+
+            })
+            console.log("success");
+
+
+
+        }
+
+        catch (err) {
+            console.log(err);
+
+        }
+
+
+    }
+
 
     const selectedWorkSpace = async (selectedId) => {
         for (const space of workspace) {
@@ -82,28 +168,45 @@ function useWorkspace() {
     const deleteWorkSpace = async (workspace) => {
         try {
 
-            const q = query(collection(db, "projects"),
+            const queryProject = query(collection(db, "projects"),
                 where("uid", "==", workspace.uid),
                 where("workspace_id", "==", workspace.workspace_id)
 
             )
-            const snapshot = await getDocs(q)
-            for (const project of snapshot.docs) {
-               
+            const snapshotProject = await getDocs(queryProject)
+            for (const project of snapshotProject.docs) {
 
-                const qu = query(collection(db, "milestone"),
+
+                const queryMilestone = query(collection(db, "milestone"),
                     where("uid", "==", workspace.uid),
                     where("workspace_id", "==", workspace.workspace_id),
                     where("project_id", "==", project.id)
 
                 )
-                const snapshotq = await getDocs(qu)
-                for (const milestone of snapshotq.docs) {
+                const snapshotMilestone = await getDocs(queryMilestone)
+                for (const milestone of snapshotMilestone.docs) {
+
+                    const queryTodo = query(collection(db, "todos"),
+                        where("uid", "==", workspace.uid),
+                        where("workspace_id", "==", workspace.workspace_id),
+                        where("project_id", "==", project.id),
+                        where("milestone_id", "==", milestone.id),
+
+
+                    )
+
+                    const snapshotTodo = await getDocs(queryTodo)
+
+
+                    for (const todo of snapshotTodo.docs) {
+                        await deleteDoc(todo.ref)
+
+                    }
                     console.log(milestone.ref);
 
                     await deleteDoc(milestone.ref)
                 }
-                 console.log(project.ref);
+                console.log(project.ref);
                 await deleteDoc(project.ref)
             }
 
@@ -121,7 +224,12 @@ function useWorkspace() {
 
     }
 
+
+
     return {
+        addWsInvitaion,
+        updateWSpaceMember,
+        updateWsInvitaion,
         addWorkSpace,
         workspace,
         selectedWorkSpace,

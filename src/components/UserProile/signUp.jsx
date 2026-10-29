@@ -55,145 +55,53 @@ function SignUp({ setData }) {
 
     }
 
-    // const checkVerification = async () => {
-    //     try {
-    //         const user = auth.currentUser;
-
-    //         if (!user) return;
-
-    //         await reload(user);
-
-    //         if (auth.currentUser.emailVerified) {
-    //             console.log("Email verified ");
-
-    //             navigate("/dashboard");
-    //         } else {
-    //             console.log("Email not verified yet");
-    //         }
-    //     } catch (err) {
-    //         console.log(err.message);
-    //     }
-    // };
-
-    // checkVerification()
-
-    // const handleUser = async () => {
-
-    //     try {
-    //         setloading(true)
-    //         const user = await createUserWithEmailAndPassword(
-    //             auth,
-    //             email,
-    //             password
-    //         )
-    //         await updateProfile(user.user, {
-    //             displayName: `${firstname} ${lastname}`
-    //         })
-    //         // await setDoc(doc(db, "users", user.user.uid), {
-    //         //     firstname,
-    //         //     lastname,
-    //         //     displayName: `${firstname} ${lastname}`,
-    //         //     email: user.user.email,
-
-    //         // });
-
-    //         // await sendEmailVerification(user.user)
-
-
-
-
-
-    //         setData(firstname,
-    //             lastname,
-    //             user.user.displayName,
-    //             user.user.email,
-    //             type,
-    //             user.user.uid, theme, userimageUrl)
-
-    //         console.log(user);
-    //         console.log(user.user);
-
-    //         // navigate("/dashboard")
-    //     }
-
-    //     catch (err) {
-    //         console.log(err.code);
-    //         // auth / invalid - email
-
-    //         if (err.code === "auth/email-already-in-use") {
-    //             setError("email is already in use try sign in")
-    //         }
-
-    //         else if (err.code === "auth/invalid-email") {
-    //             setError("Invalid email write proper email in formate")
-
-    //         }
-
-    //         else {
-    //             setError("sdjbjsbjs")
-    //         }
-    //         console.log(err.message);
-
-    //     }
-    //     finally {
-    //         setloading(false)
-
-    //     }
-
-    // }
 
 
     const handleUser = async () => {
-        try {
-            setloading(true);
-            setError("");
 
-            // 1. Create account
-            const userCredential =
-                await createUserWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                );
+        try {
+            setloading(true)
+            const userCredential = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            )
 
             const user = userCredential.user;
-            console.log(user);
 
-            // 2. Set display name
             await updateProfile(user, {
                 displayName: `${firstname} ${lastname}`
-            });
+            })
+
+
+
             const actionCodeSetting = {
                 url: "https://project-management-eosin-three.vercel.app/dashboard",
                 handleCodeInApp: false
             }
-            // 3. Send verification email
-            await sendEmailVerification(user, actionCodeSetting);
 
-            console.log("Verification email sent");
-            console.log("Sending verification email...");
-            console.log("User email:", user.email);
-            console.log("Email verified:", user.emailVerified);
-            // 4. Save user data in context
-            setData(
-                firstname,
+            await sendEmailVerification(user, actionCodeSetting)
+
+
+
+
+
+            setData(firstname,
                 lastname,
                 user.displayName,
                 user.email,
                 type,
-                user.uid,
-                theme,
-                userimageUrl
-            );
+                user.uid, theme, userimageUrl)
 
-            // 5. Go to verification page
-            navigate("/verify-email");
+            console.log(user);
 
-        } catch (err) {
-            // console.log("Error code:", err.code);
-            // console.log("Error message:", err.message);
-            console.error("VERIFICATION ERROR CODE:", error.code);
-            console.error("VERIFICATION ERROR MESSAGE:", error.message);
+            navigate("/verify-email")
+        }
+
+        catch (err) {
+            console.log(err.code);
+            console.log(err.message);
+
             if (err.code === "auth/email-already-in-use") {
                 setError("Email is already in use. Try signing in.");
             } else if (err.code === "auth/invalid-email") {
@@ -205,10 +113,79 @@ function SignUp({ setData }) {
             } else {
                 setError(err.message);
             }
-        } finally {
-            setloading(false);
+
         }
-    };
+        finally {
+            setloading(false)
+
+        }
+
+    }
+
+
+    // const handleUser = async () => {
+    //     try {
+    //         setloading(true);
+    //         setError("");
+
+    //         // 1. Create account
+    //         const userCredential =
+    //             await createUserWithEmailAndPassword(
+    //                 auth,
+    //                 email,
+    //                 password
+    //             );
+
+    //         const user = userCredential.user;
+    //         console.log(user);
+
+    //         // 2. Set display name
+    //         await updateProfile(user, {
+    //             displayName: `${firstname} ${lastname}`
+    //         });
+
+
+
+    //         await sendEmailVerification(user)
+
+
+
+
+    //         // const actionCodeSetting = {
+    //         //     url: "https://project-management-eosin-three.vercel.app/dashboard",
+    //         //     handleCodeInApp: false
+    //         // }
+    //         // 3. Send verification email
+
+    //         console.log("Verification email sent");
+    //         console.log("Sending verification email...");
+    //         console.log("User email:", user.email);
+    //         console.log("Email verified:", user.emailVerified);
+    //         // 4. Save user data in context
+    //         setData(
+    //             firstname,
+    //             lastname,
+    //             user.displayName,
+    //             user.email,
+    //             type,
+    //             user.uid,
+    //             theme,
+    //             userimageUrl
+    //         );
+
+    //         // 5. Go to verification page
+    //         navigate("/verify-email");
+
+    //     } catch (err) {
+    //         // console.log("Error code:", err.code);
+    //         // console.log("Error message:", err.message);
+    //         console.error("VERIFICATION ERROR CODE:", error.code);
+    //         console.error("VERIFICATION ERROR MESSAGE:", error.message);
+
+    //     } finally {
+    //         setloading(false);
+    //     }
+    // };
 
 
 

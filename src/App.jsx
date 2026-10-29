@@ -17,10 +17,12 @@ import UserData from "./components/UserProile/useUser.jsx"
 
 import Project from "./components/Project/projectInput.jsx"
 import WorkSpaceUi from "./components/workspace/workSpaceUi.jsx"
+import InvitationUi from "./components/invite/invitationUi.jsx"
+
 import WorkspaceSetting from "./components/workspace/workspaceSetting.jsx"
 import MilestoneDetails from "./components/milestone/milestoneDetails.jsx"
 import VerifyEmail from "./components/UserProile/verifyEmail.jsx"
-
+import Invitaion from "./components/invite/invite.jsx"
 
 import "./App.css"
 
@@ -62,7 +64,7 @@ function App() {
 
 
 
-    const { workspace, addWorkSpace, selectedWorkSpace, selectedSettingWorkSpace, loading, setloading, deleteWorkSpace } = useWorkspace()
+    const { workspace, addWorkSpace, selectedWorkSpace, selectedSettingWorkSpace, loading, setloading, deleteWorkSpace, addWsInvitaion, updateWSpaceMember, updateWsInvitaion } = useWorkspace()
     const { projects, addProjects } = useAllProjects()
     const { users, allUsers, updateTheme, setData } = UserData()
 
@@ -140,15 +142,20 @@ function App() {
 
     return (
         <>
-            <userContext.Provider value={{ setTheme, theme, workspace, addWorkSpace, selectedWorkSpace, selectedSettingWorkSpace, deleteWorkSpace, toggleTheme, updateTheme, users, allUsers, workspaceimageUrl, setworkspaceImageUrl, userimageUrl, setuserImageUrl, projects, addProjects, loading, setloading, setworkSpaceOpen, sidebarOpen, SetsidebarOpen }}>
+            <userContext.Provider value={{ setTheme, theme, workspace, addWorkSpace, selectedWorkSpace, selectedSettingWorkSpace, deleteWorkSpace, toggleTheme, updateTheme, users, allUsers, workspaceimageUrl, setworkspaceImageUrl, userimageUrl, setuserImageUrl, projects, addProjects, loading, setloading, setworkSpaceOpen, sidebarOpen, SetsidebarOpen, addWsInvitaion, updateWSpaceMember, updateWsInvitaion }}>
 
                 <BrowserRouter>
                     <div className={`${styles.app} ${users.theme === "light" ? "light" : "dark"}`}>
-                        <div style={{ position: "absolute", zIndex: "1", top: "50%", left: "50%" }}>
+                        <div style={{ background: "red", position: "absolute", zIndex: "1", top: "50%", left: "50%" }}>
                             {workSpaceOpen && <WorkSpaceUi form={form} />}
+
                         </div>
+                        <InvitationUi form={form} />
+
                         <Routes>
-                            {/* <Route path="/" element={<Project form={form} />} /> */}
+                            <Route path="/i" element={<Invitaion />} />
+
+                            <Route path="/p" element={<Project form={form} />} />
                             <Route path="/verify-email" element={<VerifyEmail />} />
 
                             <Route path="/project/:id" element={<ProjectDetails />} />

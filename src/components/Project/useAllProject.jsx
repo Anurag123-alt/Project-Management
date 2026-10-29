@@ -1,5 +1,5 @@
 import { auth, db } from "../../firebase.js"
-import { addDoc, collection, getDocs, query, updateDoc, where, doc, onSnapshot, serverTimestamp } from "firebase/firestore"
+import { addDoc, collection, getDocs, query, updateDoc, where, doc, onSnapshot, serverTimestamp, and, or } from "firebase/firestore"
 import { onAuthStateChanged } from "firebase/auth"
 import { useContext, useEffect, useState } from "react"
 import { AwardIcon } from "lucide-react"
@@ -7,6 +7,7 @@ import { userContext } from "../../userContext.jsx"
 import { priorities } from "../Dashboard/category.jsx"
 function useProjects() {
     const [projects, setProjects] = useState([])
+
     console.log(serverTimestamp());
 
     useEffect(() => {
@@ -15,8 +16,16 @@ function useProjects() {
                 setProjects([]);
                 return
             }
+
+
             const queryWorkpace = query(collection(db, "workspace"),
-                where("uid", "==", user.uid))
+                or(
+                    where("uid", "==", user.uid),
+                    where("membersuid", "array-contains", user.uid),
+
+                )
+
+            )
 
 
             const workspaceSnap = onSnapshot(queryWorkpace, (snapshotitem) => {
@@ -34,9 +43,12 @@ function useProjects() {
                     return
                 }
 
+                
+
                 const queryProjects = query(collection(db, "projects"),
-                    where("uid", "==", user.uid),
-                    where("workspace_id", "==", currentWorkspace.workspace_id),
+
+                    // where("uid", "==", user.uid),
+                    where("workspace_id", "==", currentWorkspace.workspace_id)
 
                 )
 
@@ -79,6 +91,7 @@ function useProjects() {
 
 
     return {
+
         addProjects,
         projects,
     }
